@@ -1,19 +1,14 @@
-//src/components/Navbar.tsx
+// src/components/Navbar.tsx
 "use client";
 
 import Link from "next/link";
 import { useUser, UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const pathname = usePathname();
 
   const links = [
@@ -23,9 +18,6 @@ export default function Navbar() {
     { href: "/opportunities", label: "Opportunities" },
     { href: "/stay-up-to-date", label: "News" },
   ];
-
-  // 🔐 Avoid rendering until client-side mounted
-  if (!mounted) return null;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -55,11 +47,9 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-6">
-          <div className="mr-4">
-            <ModeToggle />
-          </div>
-
-          {!user ? (
+          {!isLoaded ? (
+            <div className="h-9 w-32 bg-gray-800 animate-pulse rounded" />
+          ) : !user ? (
             <div className="flex items-center gap-4">
               <Link href="/sign-in">
                 <Button variant="outline" className="px-6 py-2 text-sm">

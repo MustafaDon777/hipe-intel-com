@@ -1,3 +1,4 @@
+// src/components/ui/mode-toggle.tsx
 "use client";
 
 import { useTheme } from "next-themes";
@@ -9,12 +10,23 @@ export function ModeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch by rendering only after mount
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  // Don't render anything until mounted on client
+  if (!mounted) {
+    return (
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label="Toggle theme"
+        disabled
+      >
+        <Sun className="h-5 w-5" />
+      </Button>
+    );
+  }
 
   return (
     <Button

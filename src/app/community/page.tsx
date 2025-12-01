@@ -1,3 +1,4 @@
+// src/app/community/page.tsx
 export default function CommunityPage() {
   return (
     <div className="text-center text-white mt-20 text-xl">
