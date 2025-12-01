@@ -1,4 +1,6 @@
 // src/app/dashboard/page.tsx
+export const dynamic = "force-dynamic"; // Add this line at the top!
+
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
