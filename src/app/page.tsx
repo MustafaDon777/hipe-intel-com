@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { Show, UserButton } from "@clerk/nextjs";
 
 export default function HomePage() {
   return (
@@ -18,7 +18,7 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col items-center">
-            <SignedOut>
+            <Show when="signed-out">
               <div className="flex gap-4 flex-wrap justify-center">
                 <Link
                   href="/sign-in"
@@ -33,9 +33,9 @@ export default function HomePage() {
                   Sign Up
                 </Link>
               </div>
-            </SignedOut>
+            </Show>
 
-            <SignedIn>
+            <Show when="signed-in">
               <div className="flex flex-col items-center space-y-4">
                 <p className="text-green-400 font-medium">You're signed in!</p>
                 <div className="flex items-center gap-4">
@@ -48,7 +48,7 @@ export default function HomePage() {
                   </Link>
                 </div>
               </div>
-            </SignedIn>
+            </Show>
           </div>
         </div>
       </section>
